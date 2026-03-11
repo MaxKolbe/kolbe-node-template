@@ -1,0 +1,31 @@
+{
+  "name": "ts-node-template",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MaxKolbe/ts-node-template.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/MaxKolbe/ts-node-template/issues"
+  },
+  "homepage": "https://github.com/MaxKolbe/ts-node-template#readme",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "dotenv": "^17.3.1",
+    "ejs": "^5.0.1",
+    "express": "^5.2.1",
+    "joi": "^18.0.2",
+    "pg": "^8.20.0",
+    "redis": "^5.11.0",
+    "winston": "^3.19.0"
+  }
+}
