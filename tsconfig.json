@@ -28,6 +28,5 @@
     // "noUncheckedSideEffectImports": true,
     "moduleDetection": "force",
     "skipLibCheck": true
-  },
-  "exclude": ["drizzle.config.ts"]
+  }
 }
