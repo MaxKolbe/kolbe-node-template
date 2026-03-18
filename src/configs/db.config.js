@@ -7,9 +7,9 @@ dotenv.config({
 });
 
 const dbMap = new Map([
-  ["development", process.env.PG_DATABASE_DEV_URL],
-  ["test", process.env.PG_DATABASE_TEST_URL],
-  ["production", process.env.PG_DATABASE_PROD_URL],
+  ["development", process.env.MONGO_DATABASE_DEV_URL],
+  ["test", process.env.MONGO_DATABASE_TEST_URL],
+  ["production", process.env.MONGO_DATABASE_PROD_URL],
 ]);
 
 const dburl = dbMap.get(process.env.NODE_ENV);
