@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import errorHandler from "./middleware/errorHandler.js";
 // import router from "./modules/user/user.routes.js";
+import { createTable } from "./utils/createTables.utils.js";
 import dotenv from "dotenv";
 dotenv.config({
   path: "../.env",
@@ -25,6 +26,8 @@ const corsOptions = {
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors(corsOptions));
+
+createTable(); 
 
 //ROUTES
 /* app.use("/", router); */

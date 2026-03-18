@@ -1,8 +1,9 @@
 import { Pool } from "pg";
+import logger from "./logger.config.js";
 import dotenv from "dotenv";
 
 dotenv.config({
-  path: "../../.env"
+  path: "../../.env",
 });
 
 const dbMap = new Map([
@@ -18,11 +19,11 @@ const pool = new Pool({
 });
 
 pool.on("connect", () => {
-    console.log("Connected to the database Pool successfully")
-})
+  logger.info("Connected to the database Pool successfully");
+});
 
 pool.on("error", () => {
-    console.log("Error Connecting to the database Pool")
-})
+  logger.error("Error Connecting to the database Pool");
+});
 
 export default pool;
