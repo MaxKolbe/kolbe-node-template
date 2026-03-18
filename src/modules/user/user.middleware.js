@@ -1,32 +1,18 @@
-import Joi from "joi";
+import { errorResponse } from "../../utils/responseHandler.js";
 
-const validateUser = (req, res, next) => {
-  try {
-    const payload = req.body;
+// VALIDATION MIDDLEWARE WTH JOI
+export const validateJoiRequest =
+  (schema) => (req, res, next) => {
+    try {
+      const payload = req.body;
+      const { error } = schema.validate(payload);
 
-    const schema = Joi.object({
-      number: Joi.number().required(),
-      string: Joi.string().required(),
-      bool: Joi.boolean().required(),
-    });
-
-    const { error } = schema.validate(payload);
-
-    if (!error) {
-      next();
-    } else {
-      return res.status(400).json({
-        status: "error",
-        message: "Invalid payload",
-        error: error.details,
-      });
+      if (!error) {
+        next();
+      } else {
+        errorResponse(res, 400, "Invalid Payload", error.details);
+      }
+    } catch (error) {
+      errorResponse(res, 400, "An Error Occurred", error);
     }
-  } catch (error) {
-    return res.status(400).json({
-      status: "error",
-      message: error,
-    });
-  }
-};
-
-export default validateUser;
+  };
