@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 import errorHandler from "./middleware/errorHandler.js";
 // import router from "./modules/user/user.routes.js";
-import { createTable } from "./utils/createTables.utils.js";
+import connectToDb from "./configs/db.config.js"
 import dotenv from "dotenv";
 dotenv.config({
   path: "../.env",
@@ -27,7 +27,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors(corsOptions));
 
-createTable(); 
+connectToDb(); 
 
 //ROUTES
 /* app.use("/", router); */
