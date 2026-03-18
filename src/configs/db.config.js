@@ -26,4 +26,8 @@ pool.on("error", () => {
   logger.error("Error Connecting to the database Pool");
 });
 
-export default pool;
+const appdb = drizzle({ client: pool });
+
+logger.info("Drizzle connected successfully");
+
+export default appdb;
