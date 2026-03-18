@@ -1,4 +1,4 @@
-import { Pool } from "pg";
+import mongoose from "mongoose";
 import dotenv from "dotenv";
 import logger from "./logger.config.js";
 
@@ -11,19 +11,17 @@ const dbMap = new Map([
   ["test", process.env.PG_DATABASE_TEST_URL],
   ["production", process.env.PG_DATABASE_PROD_URL],
 ]);
+
 const dburl = dbMap.get(process.env.NODE_ENV!);
 
-const pool = new Pool({
-  connectionString: dburl,
-  ssl: process.env.NODE_ENV === "production" ? { rejectUnauthorized: false } : false,
-});
+mongoose.connection.on("connected", () =>
+  logger.info(`Connected to the mongo database successfully`),
+);
 
-pool.on("connect", () => {
-  logger.info("Connected to the database Pool successfully");
-});
+mongoose.connection.on("error", (err) => logger.error(`Database connection error: ${err} \n`));
 
-pool.on("error", () => {
-  logger.info("Error Connecting to the database Pool");
-});
+const connectToDb = async () => {
+  await mongoose.connect(dburl!);
+};
 
-export default pool;
+export default connectToDb;

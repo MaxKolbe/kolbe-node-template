@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import { connectRedis } from "./configs/cache.config.js";
 // import router from "./modules/user/user.routes.js";
+import connectToDb from "./configs/db.config.js";
 import errorHandler from "./middleware/errorHandler.js";
 import dotenv from "dotenv";
 dotenv.config({
@@ -30,7 +31,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors(corsOptions));
 
-// connectRedis(); 
+// connectRedis();
+connectToDb();
 
 //ROUTES
 /* app.use("/", router); */
