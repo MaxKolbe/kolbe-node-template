@@ -5,7 +5,14 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node dist/index.js"
+    "build": "npm install --include=dev && npx tsc",
+    "start": "node dist/index.js",
+    "dev": "tsx watch src/index.ts",
+    "watch": "npx tsc -w",
+    "db:push": "npx drizzle-kit push",
+    "db:generate": "npx drizzle-kit generate",
+    "db:migrate": "npx drizzle-kit migrate",
+    "db:gen-mig": "npx drizzle-kit generate && npx drizzle-kit migrate"
   },
   "repository": {
     "type": "git",
@@ -24,6 +31,7 @@
     "@logtail/winston": "^0.5.8",
     "cors": "^2.8.6",
     "dotenv": "^17.3.1",
+    "drizzle-orm": "^0.45.1",
     "ejs": "^5.0.1",
     "express": "^5.2.1",
     "joi": "^18.0.2",
@@ -40,6 +48,7 @@
     "@types/node": "^25.5.0",
     "@types/pg": "^8.18.0",
     "@types/redis": "^4.0.10",
+    "drizzle-kit": "^0.31.10",
     "ts-jest": "^29.4.6",
     "typescript": "^5.9.3"
   }

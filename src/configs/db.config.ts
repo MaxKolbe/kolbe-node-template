@@ -1,6 +1,7 @@
 import { Pool } from "pg";
 import dotenv from "dotenv";
 import logger from "./logger.config.js";
+import { drizzle } from "drizzle-orm/singlestore/driver.js";
 
 dotenv.config({
   path: "../../.env",
@@ -26,4 +27,7 @@ pool.on("error", () => {
   logger.info("Error Connecting to the database Pool");
 });
 
-export default pool;
+const appdb = drizzle({client: pool})
+logger.info('Drizzle connected successfully');
+
+export default appdb;
