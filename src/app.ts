@@ -3,10 +3,7 @@ import cors from "cors";
 import { connectRedis } from "./configs/cache.config.js";
 // import router from "./modules/user/user.routes.js";
 import errorHandler from "./middleware/errorHandler.js";
-import dotenv from "dotenv";
-dotenv.config({
-  path: "../.env",
-});
+import dotenv from "dotenv/config"
 
 const app = express();
 
