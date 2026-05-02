@@ -1,10 +1,6 @@
 import { createClient, RedisClientType } from "redis";
-import dotenv from "dotenv";
 import logger from "./logger.config.js";
-
-dotenv.config({
-  path: "../../.env",
-});
+import "dotenv/config";
 
 const MAX_RETRIES = 5;
 
@@ -36,7 +32,7 @@ const redisClient: RedisClientType = createClient({
 });
 
 redisClient.on("error", (err) => {
-  logger.error(`Redis Client Creation Error: ${err}`);
+  logger.error(`Redis Client Creation Error`, { error: err });
 });
 
 export async function connectRedis() {
@@ -44,7 +40,8 @@ export async function connectRedis() {
     await redisClient.connect();
     logger.info("Redis Client connected");
   } catch (err) {
-    logger.error(`Redis Connection Error: ${err}`);
+    logger.error(`Redis Connection Error`, { error: err });
+    process.exit(1);
   }
 }
 

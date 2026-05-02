@@ -1,11 +1,7 @@
 import { Pool } from "pg";
-import dotenv from "dotenv";
 import logger from "./logger.config.js";
-import { drizzle } from "drizzle-orm/singlestore/driver.js";
-
-dotenv.config({
-  path: "../../.env",
-});
+import { drizzle } from "drizzle-orm/node-postgres";
+import "dotenv/config"
 
 const dbMap = new Map([
   ["development", process.env.PG_DATABASE_DEV_URL],
