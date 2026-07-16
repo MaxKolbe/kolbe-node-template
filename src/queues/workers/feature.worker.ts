@@ -1,7 +1,8 @@
-import "dotenv/config";
 import { Worker, Job } from "bullmq";
 import logger from "../../configs/logger.config.js";
 
+const redis_username = process.env.REDIS_USERNAME! as string;
+const redis_password = process.env.REDIS_PASSWORD! as string;
 const redis_host = process.env.REDIS_HOST! as string;
 const redis_port = Number(process.env.REDIS_PORT!);
 
@@ -14,6 +15,8 @@ const worker = new Worker(
   },
   {
     connection: {
+      username: redis_username,
+      password: redis_password,
       host: redis_host,
       port: redis_port,
     },
@@ -28,6 +31,7 @@ const worker = new Worker(
 worker.on("completed", (job) => {
   logger.info(`Job completed`, {
     jobId: job.id,
+    correlationId: job.data.correlationId
   });
 });
 
@@ -39,7 +43,8 @@ worker.on("failed", async (job, error) => {
   if (job.attemptsMade >= (job.opts.attempts ?? 3)) {
     logger.error(`Job failed permanently`, {
       jobId: job?.id,
-      error
+      correlationId: job?.data.correlationId,
+      error,
     });
   }
 });

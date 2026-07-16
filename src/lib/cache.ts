@@ -1,3 +1,4 @@
+import logger from "../configs/logger.config.js";
 import redisClient from "../configs/cache.config.js";
 import crypto from "crypto";
 
@@ -12,6 +13,7 @@ export const cacheGet = async <T>(key: string): Promise<T | null> => {
   const raw = await redisClient.get(key);
   if (!raw) return null;
   try {
+    logger.debug(`*cacheGet fxn* cache hit @${new Date(Date.now())}`);
     return JSON.parse(raw) as T;
   } catch {
     return null;
@@ -20,16 +22,19 @@ export const cacheGet = async <T>(key: string): Promise<T | null> => {
 
 export const cacheSet = async (key: string, value: any, ttlseconds: number): Promise<void> => {
   await redisClient.setEx(key, ttlseconds, JSON.stringify(value));
+  logger.debug(`*cacheSet fxn* cache set @${new Date(Date.now())}`);
 };
 
 export const cacheDel = async (key: string) => {
   await redisClient.del(key);
+  logger.debug(`*cacheDel fxn* cache key deleted @${new Date(Date.now())}`);
 };
 
 export const cacheDelPattern = async (pattern: string): Promise<void> => {
   for await (const key of redisClient.scanIterator({ MATCH: pattern, COUNT: 100 })) {
     await redisClient.del(key);
   }
+  logger.debug(`*cacheDelPattern fxn* cache key pattern deleted @${new Date(Date.now())}`);
 };
 
 export const hashKey = async (...parts: string[]): Promise<string> => {
@@ -47,7 +52,7 @@ export const cacheGetOrSet = async <T>(
   if (cached !== null) return cached;
 
   //2. Try to acquire lock
-  const lockKey = `docuchat:lock:${key}`;
+  const lockKey = `cedarrise:lock:${key}`;
   const acquired = await redisClient.set(lockKey, "1", { EX: 5, condition: "NX" }); // Expires in 5s, set only if it does NOT already exist
 
   if (acquired) {

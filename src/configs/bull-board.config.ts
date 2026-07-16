@@ -4,13 +4,12 @@ import { BullMQAdapter } from '@bull-board/api/bullMQAdapter';
 import { ExpressAdapter } from '@bull-board/express'; 
 import { featureQueue } from '../queues/feature.queue.js'; 
 
- 
 const serverAdapter = new ExpressAdapter(); 
-serverAdapter.setBasePath('/admin/queues'); 
+serverAdapter.setBasePath('/api/v1/admin/queues'); 
  
 createBullBoard({ 
   queues: [ 
-    new BullMQAdapter(featureQueue ),
+    new BullMQAdapter(featureQueue),
   ], 
   serverAdapter, 
 }); 

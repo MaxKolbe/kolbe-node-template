@@ -1,11 +1,12 @@
 import express from "express";
 import cors from "cors";
+import cookieParser from "cookie-parser";
+import requestLogger from "./middleware/requestLogger.middleware.js";
 import errorHandler from "./middleware/errorHandler.middleware.js";
-import { connectRedis } from "./configs/cache.config.js";
+// import { connectRedis } from "./configs/cache.config.js";
 import { bullBoardAdapter } from "./configs/bull-board.config.js";
 // import featureRouter from "./modules/feature/feature.routes.js";
 // import "./queues/workers/feature.worker.js"
-import "dotenv/config";
 
 const app = express();
 
@@ -29,15 +30,28 @@ const corsOptions = {
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 app.use(cors(corsOptions));
+app.use(requestLogger); 
 
 // (async () => {
 //   await connectRedis();
 // })();
 
 //ROUTES
-/* app.use("/", featureRouter); */
+/* app.use("/api/v1", featureRouter); */
 // app.use("/queues", bullBoardAdapter.getRouter());
+
+// BULL BOARD DASHBOARD. (ADD AUTH N' AUTH IN PRODUCTION)
+app.use("/api/v1/admin/queues", bullBoardAdapter.getRouter());
+
+// HANDLER FOR UNKNOWN ROUTES
+app.use((req, res) => {
+  res.status(404).json({
+    success: false,
+    error: { code: "NOT_FOUND", message: `Route ${req.path} not found` },
+  });
+});
 
 //GLOBAL ERROR HANDLER
 app.use(errorHandler);
