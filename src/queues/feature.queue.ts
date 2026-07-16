@@ -1,11 +1,14 @@
-import "dotenv/config";
 import { Queue } from "bullmq";
 
+const redis_username = process.env.REDIS_USERNAME! as string;
+const redis_password = process.env.REDIS_PASSWORD! as string;
 const redis_host = process.env.REDIS_HOST! as string;
 const redis_port = Number(process.env.REDIS_PORT!);
 
 export const featureQueue = new Queue("feature-queue", {
   connection: {
+    username: redis_username,
+    password: redis_password,
     host: redis_host,
     port: redis_port,
   },
@@ -23,7 +26,22 @@ export const featureQueue = new Queue("feature-queue", {
   },
 });
 
-const addFeatureToQueue = async () => {
-    const job = await featureQueue.add("job-name", {})
-    return job.id
-}
+export const addFeatureToQueue = async (correlationId?: string) => {
+  const job = await featureQueue.add("job-name", { correlationId });
+  return job.id;
+};
+
+// Schedule A Job
+// export const scheduleJob = async () => {
+//   await featureQueue.upsertJobScheduler(
+//     "job-schedule-name",
+//     {
+//       pattern: "* * * * *", 
+//       tz: "Africa/Lagos",
+//     },
+//     {
+//       name: "job-name",
+//       data: {},
+//     },
+//   );
+// };

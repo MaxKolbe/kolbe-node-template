@@ -1,7 +1,6 @@
-import { Pool } from "pg";
-import logger from "./logger.config.js";
+import { Pool } from "pg"
 import { drizzle } from "drizzle-orm/node-postgres";
-import "dotenv/config"
+import logger from "../configs/logger.config.js"
 
 const dbMap = new Map([
   ["development", process.env.PG_DATABASE_DEV_URL],
@@ -23,7 +22,5 @@ pool.on("error", () => {
   logger.info("Error Connecting to the database Pool");
 });
 
-const appdb = drizzle({client: pool})
-logger.info('Drizzle connected successfully');
-
-export default appdb;
+const db = drizzle({client: pool})
+export default db;
