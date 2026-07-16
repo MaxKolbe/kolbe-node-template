@@ -4,7 +4,7 @@ import cookieParser from "cookie-parser";
 import requestLogger from "./middleware/requestLogger.middleware.js";
 import errorHandler from "./middleware/errorHandler.middleware.js";
 // import { connectRedis } from "./configs/cache.config.js";
-import { bullBoardAdapter } from "./configs/bull-board.config.js";
+// import { bullBoardAdapter } from "./configs/bull-board.config.js";
 // import featureRouter from "./modules/feature/feature.routes.js";
 // import "./queues/workers/feature.worker.js"
 
@@ -43,7 +43,7 @@ app.use(requestLogger);
 // app.use("/queues", bullBoardAdapter.getRouter());
 
 // BULL BOARD DASHBOARD. (ADD AUTH N' AUTH IN PRODUCTION)
-app.use("/api/v1/admin/queues", bullBoardAdapter.getRouter());
+// app.use("/api/v1/admin/queues", bullBoardAdapter.getRouter());
 
 // HANDLER FOR UNKNOWN ROUTES
 app.use((req, res) => {
