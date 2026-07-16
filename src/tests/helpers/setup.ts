@@ -1,12 +1,11 @@
-import { referenceTable } from "../../db/models/example.js";
 import logger from "../../configs/logger.config.js";
-import db from "../../db/db.js";
+import pool from "../../db/db.js";
 
 // CLEAR TABLES
 export const clearTables = async () => {
   try {
     logger.info("Clearing tables...");
-    await db.delete(referenceTable);
+    await pool.query(`DELETE FROM "references"`);
     logger.info("Tables cleared :)");
   } catch (error: any) {
     logger.error("Could not delete all tables", {
@@ -19,7 +18,7 @@ export const clearTables = async () => {
 export const installExtensions = async () => {
   try {
     logger.info("Installing Extensions");
-    await db.execute(`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`);
+    await pool.query(`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`);
     logger.info("Extensions Installed :)");
   } catch (error: any) {
     logger.error("Could not install extensions", {

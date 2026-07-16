@@ -12,7 +12,7 @@
     "lib": ["esnext"],
     "types": ["node"],
     // and npm install -D @types/node
- 
+
     "moduleResolution": "nodenext", // Resolve modules using Node.js style
     "esModuleInterop": true, // Enables interop between ES modules and CommonJS
     "allowSyntheticDefaultImports": true, // Allows default imports from modules with no default export
@@ -28,6 +28,5 @@
     // "noUncheckedSideEffectImports": true,
     "moduleDetection": "force",
     "skipLibCheck": true
-  },
-  "exclude": ["drizzle.config.ts"]
+  }
 }

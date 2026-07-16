@@ -1,6 +1,6 @@
 import { clearTables, installExtensions } from "./helpers/setup.js";
 import { describe, it, expect, beforeEach } from "vitest";
-import db from "../db/db.js";
+import pool from "../db/db.js";
 
 describe("example-auth-unit-test", () => {
   //   beforeEach(() => {
@@ -9,7 +9,7 @@ describe("example-auth-unit-test", () => {
   //   });
 
   it("should return true", async () => {
-    const result = await db.execute("SELECT 1");
+    const result = await pool.query("SELECT 1");
   
     expect(result.command).toBe("SELECT");
   });

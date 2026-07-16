@@ -1,4 +1,4 @@
-import db from "../db/db.js";
+import pool from "../db/db.js";
 import logger from "../configs/logger.config.js";
 import { cacheGetOrSet } from "../lib/cache.js";
 import { CACHE_TTL } from "../lib/cache.js";
