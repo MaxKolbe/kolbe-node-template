@@ -18,7 +18,7 @@ const createLimiter = (options: {
       sendCommand: async (...args: string[]) => ((await redisClient) as any).sendCommand(args),
     }),
     message: {
-      sucess: false,
+      success: false,
       error: {
         code: "RATE_LIMITED",
         message: options.message,
