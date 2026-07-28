@@ -16,16 +16,17 @@ const pool = new Pool({
 
 export async function connectDatabase() {
   try {
-    await pool.connect();
-    logger.info("Connected to database Pool successfully")
+    const client = await pool.connect();
+    client.release();
+    logger.info("Connected to database Pool successfully");
   } catch (err) {
     logger.error("Failed to connect to database:", err);
     process.exit(1);
   }
 }
 
-pool.on("error", () => {
-  logger.error("Unexpected PostgreSQL pool error.")
+pool.on("error", (err, client) => {
+  logger.error("Unexpected error on idle client", { err });
 });
 
 const db = drizzle({client: pool})
