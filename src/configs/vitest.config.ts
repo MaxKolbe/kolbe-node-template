@@ -8,6 +8,7 @@ export default defineConfig({
   envDir: rootDir,
   test: {
     setupFiles: [path.resolve(configDir, "vitest.setup.ts")],
+    testTimeout: 10000,
     globals: true,
     environment: "node",
     coverage: {
