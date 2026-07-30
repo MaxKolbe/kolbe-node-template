@@ -5,10 +5,10 @@ name: Node.js CI
 
 on:
   push:
-    branches: [ "ts-drizzle" ]
+    branches: [ "main" ]
 
   pull_request:
-    branches: [ "ts-drizzle" ]
+    branches: [ "main" ]
 
 jobs:
   test:
