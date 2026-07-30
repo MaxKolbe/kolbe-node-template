@@ -10,6 +10,7 @@
     "dev": "tsx watch --env-file=.env src/index.ts",
     "watch": "tsc -w",
     "db:seed": "tsx --env-file=.env src/db/seedScript.ts",
+    "db:seed:ci": "tsx src/db/seedScript.ts", 
     "test": "vitest run --config src/configs/vitest.config.ts",
     "test:watch": "vitest --config src/configs/vitest.config.ts",
     "test:coverage": "vitest run --coverage --config src/configs/vitest.config.ts"
