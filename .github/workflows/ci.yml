@@ -38,8 +38,7 @@ jobs:
     - name: Install dependencies 
       run: npm ci
 
-    - name: Run migrations
-      run: npx drizzle-kit migrate
+    # - name: Run migrations
       
     - name: seed database
       run:  npm run db:seed:ci
