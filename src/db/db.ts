@@ -17,8 +17,8 @@ const pool = new Pool({
 export async function connectDatabase() {
   try {
     const client = await pool.connect();
-    logger.info("Connected to database Pool successfully");
     client.release();
+    logger.info("Connected to database Pool successfully");
   } catch (err) {
     logger.error("Failed to connect to database:", err);
     process.exit(1);
@@ -26,7 +26,7 @@ export async function connectDatabase() {
 }
 
 pool.on("error", (err: Error, client: PoolClient) => {
-  logger.error("Unexpected PostgreSQL pool error", {
+  logger.error("Unexpected error on idle client", {
     err,
   });
 });
