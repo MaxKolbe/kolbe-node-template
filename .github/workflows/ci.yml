@@ -16,8 +16,8 @@ jobs:
 
     env: 
       PG_DATABASE_TEST_URL: ${{ secrets.PG_DATABASE_TEST_URL }}
-      PG_DATABASE_DEV_URL: ${{ secrets.PG_DATABASE_DEV_URL }}
-      PG_DATABASE_PROD_URL: ${{ secrets.PG_DATABASE_PROD_URL}}
+      PG_DATABASE_DEV_URL: ${{ secrets.PG_DATABASE_TEST_URL }}
+      PG_DATABASE_PROD_URL: ${{ secrets.PG_DATABASE_TEST_URL}}
       JWT_ACCESS_SECRET: ci-access-secret-at-least-thirty-two-characters 
       JWT_REFRESH_SECRET: ci-refresh-secret-at-least-thirty-two-characters 
       NODE_ENV: test
@@ -42,7 +42,7 @@ jobs:
       run: npx drizzle-kit migrate
       
     - name: seed database
-      run:  npm run db:seed
+      run:  npm run db:seed:ci
 
     - name: Run tests if test script is present
       run:  npm test --if-present
