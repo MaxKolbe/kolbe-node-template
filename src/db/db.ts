@@ -1,6 +1,6 @@
-import { Pool } from "pg"
+import { Pool, PoolClient } from "pg";
 import { drizzle } from "drizzle-orm/node-postgres";
-import logger from "../configs/logger.config.js"
+import logger from "../configs/logger.config.js";
 
 const dbMap = new Map([
   ["development", process.env.PG_DATABASE_DEV_URL],
@@ -16,17 +16,20 @@ const pool = new Pool({
 
 export async function connectDatabase() {
   try {
-    await pool.connect();
-    logger.info("Connected to database Pool successfully")
+    const client = await pool.connect();
+    logger.info("Connected to database Pool successfully");
+    client.release();
   } catch (err) {
     logger.error("Failed to connect to database:", err);
     process.exit(1);
   }
 }
 
-pool.on("error", () => {
-  logger.error("Unexpected PostgreSQL pool error.")
+pool.on("error", (err: Error, client: PoolClient) => {
+  logger.error("Unexpected PostgreSQL pool error", {
+    err,
+  });
 });
 
-const db = drizzle({client: pool})
+const db = drizzle({ client: pool });
 export default db;
