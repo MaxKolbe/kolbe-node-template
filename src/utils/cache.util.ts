@@ -5,18 +5,22 @@ import logger from "../configs/logger.config.js";
 export const doKeysForThisPatternExist = async (pattern: string): Promise<boolean> => {
   const isExistsArr = [];
 
-  for await (const key of redisClient.scanIterator({ MATCH: pattern, COUNT: 100 })) {
-    const data = await redisClient.get(key.toString());
-    if (data) {
-      isExistsArr.push(data);
-      break;
+  for await (const keys of redisClient.scanIterator({ MATCH: pattern, COUNT: 100 })) {
+    for (const key of keys) {
+      const data = await redisClient.get(key.toString());
+      
+      if (data) {
+        isExistsArr.push(data);
+        break;
+      }
     }
   }
 
   if (isExistsArr.length > 0) {
+    
     return true;
   }
-
+  
   return false;
 };
 
