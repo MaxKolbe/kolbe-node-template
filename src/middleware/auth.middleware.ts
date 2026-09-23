@@ -30,8 +30,14 @@ export const authenticate = () => async (req: Request, res: Response, next: Next
         req.headers["user-agent"] as string,
       );
 
-      res.cookie("cookie-name", authResponse.meta.accessToken, accessCookieOptions);
-      res.cookie("cookie-name", authResponse.meta.refreshToken, refreshCookieOptions);
+      res.cookie("cookie-name", authResponse.meta.accessToken, {
+        ...accessCookieOptions,
+        expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7),
+      });
+      res.cookie("cookie-name", authResponse.meta.refreshToken, {
+        ...refreshCookieOptions,
+        expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7),
+      });
 
       req.user = {
         id: authResponse.meta.sub,
