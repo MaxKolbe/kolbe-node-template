@@ -8,7 +8,7 @@ const dbMap = new Map([
 const dburl = dbMap.get(process.env.NODE_ENV!)
 
 export default defineConfig({   
-  out: "./drizzle",
+  out: "./src/db/drizzle",
   dialect: "postgresql",
   schema: "./src/db/models",  
   dbCredentials: {
