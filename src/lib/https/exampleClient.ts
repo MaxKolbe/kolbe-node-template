@@ -1,14 +1,15 @@
 import { createFetchClient } from "@zayne-labs/callapi";
 import logger from "../../configs/logger.config.js";
+import { env } from "../../configs/env.config.js";
 
 export const callExampleApi = createFetchClient({
-  baseURL: process.env.EXAMPLE_BASE_URL!,
+  baseURL: env.EXAMPLE_BASE_URL!,
   retryAttempts: 1,
   throwOnError: true,
   timeout: 10000,
   dedupeStrategy: "cancel",
   // credentials: "same-origin",
-  auth: process.env.EXAMPLE_API_KEY,
+  auth: env.EXAMPLE_API_KEY,
   onRequest: (ctx: any) => {
     logger.info("Request to --- has been made", {
       date: new Date(Date.now()),
