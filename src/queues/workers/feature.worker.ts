@@ -1,10 +1,11 @@
 import { Worker, Job } from "bullmq";
 import logger from "../../configs/logger.config.js";
+import { env } from "../../configs/env.config.js";
 
-const redis_username = process.env.REDIS_USERNAME! as string;
-const redis_password = process.env.REDIS_PASSWORD! as string;
-const redis_host = process.env.REDIS_HOST! as string;
-const redis_port = Number(process.env.REDIS_PORT!);
+const redis_username = env.REDIS_USERNAME as string;
+const redis_password = env.REDIS_PASSWORD as string;
+const redis_host = env.REDIS_HOST as string;
+const redis_port = Number(env.REDIS_PORT);
 
 const worker = new Worker(
   "feature-queue",

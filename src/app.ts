@@ -7,10 +7,11 @@ import errorHandler from "./middleware/errorHandler.middleware.js";
 // import { bullBoardAdapter } from "./configs/bull-board.config.js";
 // import featureRouter from "./modules/feature/feature.routes.js";
 // import "./queues/workers/feature.worker.js"
+import { env } from "./configs/env.config.js";
 
 const app = express();
 
-const whitelist = [`http://localhost:${process.env.PORT}`];
+const whitelist = [`http://localhost:${env.PORT}`];
 const corsOptions = {
   origin: function (
     origin: string | undefined,
@@ -32,7 +33,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(cors(corsOptions));
-app.use(requestLogger); 
+app.use(requestLogger);
 
 // (async () => {
 //   await connectRedis();
