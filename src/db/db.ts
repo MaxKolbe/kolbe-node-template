@@ -1,16 +1,17 @@
-import { Pool } from "pg"
-import logger from "../configs/logger.config.js"
+import { Pool } from "pg";
+import { env } from "../configs/env.config.js";
+import logger from "../configs/logger.config.js";
 
 const dbMap = new Map([
-  ["development", process.env.PG_DATABASE_DEV_URL],
-  ["test", process.env.PG_DATABASE_TEST_URL],
-  ["production", process.env.PG_DATABASE_PROD_URL],
+  ["development", env.PG_DATABASE_DEV_URL],
+  ["test", env.PG_DATABASE_TEST_URL],
+  ["production", env.PG_DATABASE_PROD_URL],
 ]);
-const dburl = dbMap.get(process.env.NODE_ENV!);
+const dburl = dbMap.get(env.NODE_ENV);
 
 const pool = new Pool({
   connectionString: dburl,
-  ssl: process.env.NODE_ENV === "production" ? { rejectUnauthorized: false } : false,
+  ssl: env.NODE_ENV === "production" ? { rejectUnauthorized: false } : false,
 });
 
 export async function connectDatabase() {

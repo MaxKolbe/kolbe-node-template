@@ -3,6 +3,8 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import requestLogger from "./middleware/requestLogger.middleware.js";
 import errorHandler from "./middleware/errorHandler.middleware.js";
+import healthRouter from "./modules/health/health.routes.js";
+import { env } from "./configs/env.config.js";
 // import { connectRedis } from "./configs/cache.config.js";
 // import { bullBoardAdapter } from "./configs/bull-board.config.js";
 // import featureRouter from "./modules/feature/feature.routes.js";
@@ -10,7 +12,7 @@ import errorHandler from "./middleware/errorHandler.middleware.js";
 
 const app = express();
 
-const whitelist = [`http://localhost:${process.env.PORT}`];
+const whitelist = [`http://localhost:${env.PORT}`];
 const corsOptions = {
   origin: function (
     origin: string | undefined,
@@ -41,6 +43,7 @@ app.use(requestLogger);
 //ROUTES
 /* app.use("/api/v1", featureRouter); */
 // app.use("/queues", bullBoardAdapter.getRouter());
+app.use("/api/v1/health", healthRouter);
 
 // BULL BOARD DASHBOARD. (ADD AUTH N' AUTH IN PRODUCTION)
 // app.use("/api/v1/admin/queues", bullBoardAdapter.getRouter());
