@@ -23,10 +23,12 @@
 
     // Recommended Options
     "strict": true,
-    "jsx": "react-jsx",
+    // "jsx": "react-jsx",
     "isolatedModules": true,
     // "noUncheckedSideEffectImports": true,
     "moduleDetection": "force",
     "skipLibCheck": true
-  }
+  },
+  "include": ["src"],
+  "exclude": ["drizzle.config.ts", "vitest.config.ts", "vitest.setup.ts", "tests"]
 }
