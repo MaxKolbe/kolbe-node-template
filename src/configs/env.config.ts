@@ -28,6 +28,7 @@ const EnvSchema = z.object({
   CLOUDINARY_SECRET: z.string().optional(),
   EXAMPLE_BASE_URL: z.string().optional(),
   EXAMPLE_API_KEY: z.string().optional(),
+  DB_SSL: z.string().default("false"),
 });
 
 const result = EnvSchema.safeParse(process.env);

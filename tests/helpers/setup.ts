@@ -1,6 +1,6 @@
-import { referenceTable } from "../../db/models/example.js";
-import logger from "../../configs/logger.config.js";
-import db from "../../db/db.js";
+import { referenceTable } from "../../src/db/models/example.js";
+import logger from "../../src/configs/logger.config.js";
+import db from "../../src/db/db.js";
 
 // CLEAR TABLES
 export const clearTables = async () => {
